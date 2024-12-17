@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone Style Calculator</title>
+    <title>Advanced iPhone Style Calculator</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,14 +17,18 @@
         .calculator {
             background-color: #2c2c2c;
             border-radius: 40px;
-            width: 320px;
+            width: 360px; /* Adjusted width */
+            height: 640px; /* Height adjusted for 9:16 aspect ratio */
             padding: 20px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .display {
             background-color: #000;
             color: #fff;
-            font-size: 2em;
+            font-size: 1.8em;
             text-align: right;
             padding: 20px;
             border-radius: 10px;
@@ -67,6 +71,12 @@
         .button.equals:hover {
             background-color: #45b557;
         }
+        .button.special {
+            background-color: #007aff;
+        }
+        .button.special:hover {
+            background-color: #0061cc;
+        }
     </style>
 </head>
 <body>
@@ -89,9 +99,24 @@
             <button class="button operator" onclick="appendToDisplay('-')">-</button>
             
             <button class="button" onclick="appendToDisplay('0')">0</button>
-            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
             <button class="button equals" onclick="calculateResult()">=</button>
             <button class="button operator" onclick="appendToDisplay('+')">+</button>
+
+            <!-- Special Functions -->
+            <button class="button special" onclick="appendToDisplay('Math.sin(')">sin</button>
+            <button class="button special" onclick="appendToDisplay('Math.cos(')">cos</button>
+            <button class="button special" onclick="appendToDisplay('Math.tan(')">tan</button>
+            <button class="button special" onclick="appendToDisplay('Math.log(')">log</button>
+
+            <button class="button special" onclick="appendToDisplay('Math.sqrt(')">√</button>
+            <button class="button special" onclick="appendToDisplay('Math.pow(')">^</button>
+            <button class="button special" onclick="appendToDisplay('Math.PI')">π</button>
+            <button class="button special" onclick="appendToDisplay('Math.E')">e</button>
+
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button special" onclick="appendToDisplay('(')">(</button>
+            <button class="button special" onclick="appendToDisplay(')')">)</button>
         </div>
     </div>
 
@@ -111,12 +136,8 @@
 
         function calculateResult() {
             let display = document.getElementById("display");
+            let expression = display.innerText;
+
             try {
-                display.innerText = eval(display.innerText);
-            } catch (e) {
-                display.innerText = "Error";
-            }
-        }
-    </script>
-</body>
-</html>
+                // Handling the eval calculation for trigonometry, logarithms, etc.
+                expression = expression.replace(/Math.sin
