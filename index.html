@@ -3,79 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced iPhone Style Calculator</title>
+    <title>iPhone Style Full-Screen Calculator</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f5;
+            background: linear-gradient(135deg, #6c5ce7, #00b894); /* Gradient background */
             margin: 0;
         }
+
         .calculator {
-            background-color: #2c2c2c;
+            background: #1f1f1f;
             border-radius: 40px;
-            width: 360px; /* Adjusted width */
-            height: 640px; /* Height adjusted for 9:16 aspect ratio */
+            width: 100%;
+            max-width: 400px;
+            height: 80vh;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transform: scale(0.95); /* Slightly shrink the calculator for aesthetics */
         }
+
         .display {
-            background-color: #000;
+            background-color: #2c2c2c;
             color: #fff;
-            font-size: 1.8em;
+            font-size: 3em;
             text-align: right;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             margin-bottom: 20px;
-            height: 60px;
-            line-height: 60px;
+            height: 100px;
+            line-height: 100px;
             overflow: hidden;
             word-wrap: break-word;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
+
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px;
+            flex-grow: 1;
+            justify-items: center;
         }
+
         .button {
-            background-color: #3a3a3a;
+            background-color: #333;
             color: #fff;
-            font-size: 1.5em;
+            font-size: 2em;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 20px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 70px;
+            height: 70px;
         }
+
         .button:hover {
             background-color: #555;
         }
+
         .button:active {
             background-color: #777;
+            transform: scale(0.95); /* Soft click animation */
         }
+
         .button.operator {
             background-color: #ff9500;
         }
+
         .button.operator:hover {
-            background-color: #ff7f00;
+            background-color: #e68a00;
         }
+
         .button.equals {
             background-color: #4cd964;
+            grid-column: span 2;
         }
+
         .button.equals:hover {
             background-color: #45b557;
         }
-        .button.special {
-            background-color: #007aff;
+
+        .button.clear {
+            background-color: #d9534f;
         }
-        .button.special:hover {
-            background-color: #0061cc;
+
+        .button.clear:hover {
+            background-color: #c9302c;
+        }
+
+        @media (max-width: 500px) {
+            .calculator {
+                width: 90%;
+                height: 85vh;
+            }
         }
     </style>
 </head>
@@ -83,61 +117,71 @@
     <div class="calculator">
         <div class="display" id="display">0</div>
         <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendToDisplay('/')">/</button>
+            <button class="button operator" onclick="appendToDisplay('*')">*</button>
+            <button class="button operator" onclick="appendToDisplay('-')">-</button>
+            
             <button class="button" onclick="appendToDisplay('7')">7</button>
             <button class="button" onclick="appendToDisplay('8')">8</button>
             <button class="button" onclick="appendToDisplay('9')">9</button>
-            <button class="button operator" onclick="appendToDisplay('/')">/</button>
+            <button class="button operator" onclick="appendToDisplay('+')">+</button>
             
             <button class="button" onclick="appendToDisplay('4')">4</button>
             <button class="button" onclick="appendToDisplay('5')">5</button>
             <button class="button" onclick="appendToDisplay('6')">6</button>
-            <button class="button operator" onclick="appendToDisplay('*')">*</button>
-            
+            <button class="button operator" onclick="appendToDisplay('%')">%</button>
+
             <button class="button" onclick="appendToDisplay('1')">1</button>
             <button class="button" onclick="appendToDisplay('2')">2</button>
             <button class="button" onclick="appendToDisplay('3')">3</button>
-            <button class="button operator" onclick="appendToDisplay('-')">-</button>
-            
+            <button class="button operator" onclick="appendToDisplay('.')">.</button>
+
             <button class="button" onclick="appendToDisplay('0')">0</button>
-            <button class="button" onclick="appendToDisplay('.')">.</button>
             <button class="button equals" onclick="calculateResult()">=</button>
-            <button class="button operator" onclick="appendToDisplay('+')">+</button>
-
-            <!-- Special Functions -->
-            <button class="button special" onclick="appendToDisplay('Math.sin(')">sin</button>
-            <button class="button special" onclick="appendToDisplay('Math.cos(')">cos</button>
-            <button class="button special" onclick="appendToDisplay('Math.tan(')">tan</button>
-            <button class="button special" onclick="appendToDisplay('Math.log(')">log</button>
-
-            <button class="button special" onclick="appendToDisplay('Math.sqrt(')">√</button>
-            <button class="button special" onclick="appendToDisplay('Math.pow(')">^</button>
-            <button class="button special" onclick="appendToDisplay('Math.PI')">π</button>
-            <button class="button special" onclick="appendToDisplay('Math.E')">e</button>
-
-            <button class="button" onclick="clearDisplay()">C</button>
-            <button class="button special" onclick="appendToDisplay('(')">(</button>
-            <button class="button special" onclick="appendToDisplay(')')">)</button>
         </div>
     </div>
 
     <script>
+        // Function to append a value to the display
         function appendToDisplay(value) {
             let display = document.getElementById("display");
             if (display.innerText === "0" && value !== '.') {
-                display.innerText = value;
+                display.innerText = value; // If display is 0, replace it
             } else {
-                display.innerText += value;
+                display.innerText += value; // Otherwise, append the value
             }
         }
 
+        // Function to clear the display
         function clearDisplay() {
             document.getElementById("display").innerText = "0";
         }
 
+        // Function to evaluate and show the result
         function calculateResult() {
             let display = document.getElementById("display");
             let expression = display.innerText;
+            
+            // Replace percentage symbol with division by 100
+            expression = expression.replace('%', '/100');
 
             try {
-                // Handling the eval calculation for trigonometry, logarithms, etc.
-                expression = expression.replace(/Math.sin
+                // Evaluate the mathematical expression
+                let result = eval(expression);
+
+                // Check if result is Infinity or NaN
+                if (result === Infinity || result === -Infinity) {
+                    display.innerText = "∞";
+                } else if (isNaN(result)) {
+                    display.innerText = "Error";
+                } else {
+                    display.innerText = result;
+                }
+            } catch (e) {
+                display.innerText = "Error"; // Show error if calculation fails
+            }
+        }
+    </script>
+</body>
+</html>
