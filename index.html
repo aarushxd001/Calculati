@@ -3,185 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone Style Full-Screen Calculator</title>
+    <title>20 Reasons Why You Should Accept My Proposal</title>
     <style>
-        * {
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #1c1c1c; /* Pearl black background */
-            margin: 0;
-        }
-
-        .calculator {
-            background: #2a2a2a; /* Darker background for the calculator */
-            border-radius: 40px;
-            width: 100%;
-            max-width: 400px;
-            height: 80vh;
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
             padding: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* Move everything to the bottom */
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .display {
-            background-color: #333;
-            color: #fff;
-            font-size: 3em; /* Increased font size for a bigger display */
-            text-align: right;
-            padding: 25px; /* Increased padding for a larger display */
-            border-radius: 20px;
-            margin-bottom: 20px;
-            height: 120px;
-            line-height: 120px;
-            overflow: hidden;
-            word-wrap: break-word;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Added text shadow for aesthetics */
+        h1 {
+            color: #ff5733;
         }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            flex-grow: 1;
-            justify-items: center;
+        .meme-img {
+            width: 80%;
+            border-radius: 8px;
+            margin: 20px 0;
         }
-
-        .button {
-            background-color: #333;
-            color: #fff;
-            font-size: 2em;
+        .btn {
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 20px;
             border: none;
-            border-radius: 15px;
-            padding: 15px; /* Reduced padding for compact numbers */
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            width: 70px;
-            height: 70px;
+            font-size: 18px;
+            margin-top: 20px;
         }
-
-        .button:hover {
-            background-color: #555;
+        .btn:hover {
+            background-color: #c0392b;
         }
-
-        .button:active {
-            background-color: #777;
-            transform: scale(0.95); /* Soft click animation */
-        }
-
-        .button.operator {
-            background-color: #ff9500;
-        }
-
-        .button.operator:hover {
-            background-color: #e68a00;
-        }
-
-        .button.equals {
-            background-color: #4cd964;
-            grid-column: span 2;
-        }
-
-        .button.equals:hover {
-            background-color: #45b557;
-        }
-
-        .button.clear {
-            background-color: #d9534f;
-        }
-
-        .button.clear:hover {
-            background-color: #c9302c;
-        }
-
-        @media (max-width: 500px) {
-            .calculator {
-                width: 90%;
-                height: 85vh;
-            }
+        .reason-text {
+            font-size: 20px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <div class="display" id="display">0</div>
-        <div class="buttons">
-            <button class="button clear" onclick="clearDisplay()">C</button>
-            <button class="button operator" onclick="appendToDisplay('/')">/</button>
-            <button class="button operator" onclick="appendToDisplay('*')">*</button>
-            <button class="button operator" onclick="appendToDisplay('-')">-</button>
-            
-            <button class="button" onclick="appendToDisplay('7')">7</button>
-            <button class="button" onclick="appendToDisplay('8')">8</button>
-            <button class="button" onclick="appendToDisplay('9')">9</button>
-            <button class="button operator" onclick="appendToDisplay('+')">+</button>
-            
-            <button class="button" onclick="appendToDisplay('4')">4</button>
-            <button class="button" onclick="appendToDisplay('5')">5</button>
-            <button class="button" onclick="appendToDisplay('6')">6</button>
-            <button class="button operator" onclick="appendToDisplay('%')">%</button>
 
-            <button class="button" onclick="appendToDisplay('1')">1</button>
-            <button class="button" onclick="appendToDisplay('2')">2</button>
-            <button class="button" onclick="appendToDisplay('3')">3</button>
-            <button class="button operator" onclick="appendToDisplay('.')">.</button>
-
-            <button class="button" onclick="appendToDisplay('0')">0</button>
-            <button class="button equals" onclick="calculateResult()">=</button>
+    <div class="container">
+        <h1>20 Reasons Why You Should Accept My Proposal</h1>
+        <div id="reason-container">
+            <p class="reason-text" id="reason-text">Are you ready to discover why?</p>
+            <img src="https://via.placeholder.com/400" class="meme-img" id="meme-img" alt="Meme">
+            <button class="btn" id="next-button" onclick="nextReason()">Next</button>
         </div>
     </div>
 
     <script>
-        // Function to append a value to the display
-        function appendToDisplay(value) {
-            let display = document.getElementById("display");
-            if (display.innerText === "0" && value !== '.') {
-                display.innerText = value; // If display is 0, replace it
-            } else {
-                display.innerText += value; // Otherwise, append the value
-            }
-        }
+        // Array of reasons and meme URLs (replace with actual meme URLs)
+        const reasons = [
+            "1. I'm kind and caring, like a human-sized teddy bear. 🧸",
+            "2. I'm passionate about you. You’re the spark in my engine. 🚗💨",
+            "3. I’m wealthy. Like, 'I bought an extra large pizza' wealthy. 🍕",
+            "4. I’m a car guy. So you know I’m all about smooth rides. 🚗💥",
+            "5. I’m an aviation expert. I'll literally fly you to the moon... or at least to the beach. ✈️",
+            "6. I’m going to be a lawyer. So I know how to argue... in your favor. ⚖️",
+            "7. I’ll make you laugh every single day. Humor is my middle name! 😂",
+            "8. I'll be your personal chauffeur and private jet pilot. 🚗✈️",
+            "9. I know all the best places to eat. Yes, I am a foodie. 🍔",
+            "10. I’ll be the best listener. Just try me. 👂",
+            "11. I’m the type to surprise you with flowers... just because. 🌹",
+            "12. I know how to make a mean breakfast in bed. 🍳🥞",
+            "13. I’ll defend you like a lawyer... even when you steal my fries. 🍟",
+            "14. I’m always down for adventure. Let's go to the moon! 🌕",
+            "15. I will make you feel like the luckiest person alive. 🍀",
+            "16. I’m here to make you happy, not just today, but forever. ❤️",
+            "17. You deserve the best, and that’s exactly what I’ll give you. 🏆",
+            "18. All I need is a 'Yes,' and I’ll be happy forever. 🥰"
+        ];
 
-        // Function to clear the display
-        function clearDisplay() {
-            document.getElementById("display").innerText = "0";
-        }
+        const memeImages = [
+            "https://via.placeholder.com/400?text=Meme+1",
+            "https://via.placeholder.com/400?text=Meme+2",
+            "https://via.placeholder.com/400?text=Meme+3",
+            "https://via.placeholder.com/400?text=Meme+4",
+            "https://via.placeholder.com/400?text=Meme+5",
+            "https://via.placeholder.com/400?text=Meme+6",
+            "https://via.placeholder.com/400?text=Meme+7",
+            "https://via.placeholder.com/400?text=Meme+8",
+            "https://via.placeholder.com/400?text=Meme+9",
+            "https://via.placeholder.com/400?text=Meme+10",
+            "https://via.placeholder.com/400?text=Meme+11",
+            "https://via.placeholder.com/400?text=Meme+12",
+            "https://via.placeholder.com/400?text=Meme+13",
+            "https://via.placeholder.com/400?text=Meme+14",
+            "https://via.placeholder.com/400?text=Meme+15",
+            "https://via.placeholder.com/400?text=Meme+16",
+            "https://via.placeholder.com/400?text=Meme+17",
+            "https://via.placeholder.com/400?text=Meme+18",
+            "https://via.placeholder.com/400?text=Meme+19",
+            "https://via.placeholder.com/400?text=Meme+20"
+        ];
 
-        // Function to evaluate and show the result
-        function calculateResult() {
-            let display = document.getElementById("display");
-            let expression = display.innerText;
-            
-            // Replace percentage symbol with division by 100
-            expression = expression.replace('%', '/100');
+        let currentReason = 0;
 
-            try {
-                // Evaluate the mathematical expression
-                let result = eval(expression);
-
-                // Check if result is Infinity or NaN
-                if (result === Infinity || result === -Infinity) {
-                    display.innerText = "I hate you";
-                } else if (isNaN(result)) {
-                    display.innerText = "Error";
-                } else {
-                    display.innerText = result;
+        function nextReason() {
+            if (currentReason < reasons.length) {
+                document.getElementById("reason-text").innerText = reasons[currentReason];
+                document.getElementById("meme-img").src = memeImages[currentReason];
+                currentReason++;
+                if (currentReason === reasons.length) {
+                    document.getElementById("next-button").innerText = "You’ve Seen All Reasons!";
+                    document.getElementById("next-button").disabled = true;
                 }
-            } catch (e) {
-                display.innerText = "Error"; // Show error if calculation fails
             }
         }
     </script>
+
 </body>
 </html>
